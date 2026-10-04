@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <script>
+      (function() {
+        // Safeguard against third-party or iframe wrappers attempting to assign to getter-only window.fetch
+        try {
+          var _origFetch = window.fetch;
+          Object.defineProperty(window, 'fetch', {
+            get: function() {
+              return _origFetch;
+            },
+            set: function(newFetch) {
+              _origFetch = newFetch;
+            },
+            configurable: true,
+            enumerable: true
+          });
+        } catch (err) {
+          try {
+            var _protoFetch = Window.prototype.fetch;
+            Object.defineProperty(Window.prototype, 'fetch', {
+              get: function() {
+                return _protoFetch;
+              },
+              set: function(newFetch) {
+                _protoFetch = newFetch;
+              },
+              configurable: true,
+              enumerable: true
+            });
+          } catch (e) {}
+        }
+
+        // Catch and suppress uncaught getter-only fetch property assignment errors from any extensions or parent frames
+        window.addEventListener('error', function(event) {
+          if (
+            event &&
+            event.message &&
+            typeof event.message === 'string' &&
+            event.message.indexOf('fetch') !== -1 &&
+            event.message.indexOf('getter') !== -1
+          ) {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            return true;
+          }
+        }, true);
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <title>VIBE — AI Life Companion</title>
+    <meta name="description" content="Dump your chaos. Get your next move. An aesthetic Gen-Z AI companion that turns messy thoughts into clear next actions." />
+    <meta property="og:title" content="VIBE — AI Life Companion" />
+    <meta property="og:description" content="Dump your chaos. Get your next move. An aesthetic Gen-Z AI companion that turns messy thoughts into clear next actions." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-[#09090b] text-[#f4f4f5] antialiased selection:bg-purple-500/30 selection:text-purple-200">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

@@ -1,0 +1,8 @@
+{
+  "name": "VIBE — AI Life Companion",
+  "description": "Dump your chaos. Get your next move. An aesthetic Gen-Z AI companion that turns messy thoughts into clear next actions.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
